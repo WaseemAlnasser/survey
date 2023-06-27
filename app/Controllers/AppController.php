@@ -71,7 +71,7 @@ class AppController {
 
         $user = User::where('email', $email);
         if ($user) {
-            echo $user;
+            echo $user->email;
             return ;
         }
 
