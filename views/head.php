@@ -29,17 +29,17 @@ session_start();
 
         <nav id="navbar" class="navbar">
             <ul>
-                <li><a class="nav-link scrollto <?php echo $url == '' ? 'active' : ''; ?>" href="<?php echo url('')?>">Home</a></li>
+                <li><a class="nav-link scrollto <?php echo $url == '' ? 'active' : ''; ?>" href="">Home</a></li>
                 <?php if(user_check() && user() != null):
                     if (user()->admin == 1):
                     ?>
-                    <li><a class="nav-link scrollto <?php echo $url == 'dashboard' ? 'active' : ''; ?>" href="<?php echo url('/admin')?>">Dashboard</a></li>
+                    <li><a class="nav-link scrollto <?php echo $url == 'dashboard' ? 'active' : ''; ?>" href="/admin">Dashboard</a></li>
                     <?php endif;?>
-                    <li><a class="nav-link scrollto <?php echo $url == 'surveys' ? 'active' : ''; ?>" href="<?php echo url('/surveys')?>">surveys</a></li>
-                    <li><a class="nav-link scrollto" href="<?php echo url('/logout')?>">logout</a></li>
+                    <li><a class="nav-link scrollto <?php echo $url == 'surveys' ? 'active' : ''; ?>" href="/surveys">surveys</a></li>
+                    <li><a class="nav-link scrollto" href="/logout">logout</a></li>
                 <?php else:?>
-                    <li><a class="nav-link scrollto <?php echo $url == 'register' ? 'active' : ''; ?>" href="<?php echo url('/register')?>">Register</a></li>
-                    <li><a class="nav-link scrollto <?php echo $url == 'login' ? 'active' : ''; ?>" href="<?php echo url('/login')?>">Login</a></li>
+                    <li><a class="nav-link scrollto <?php echo $url == 'register' ? 'active' : ''; ?>" href="/register">Register</a></li>
+                    <li><a class="nav-link scrollto <?php echo $url == 'login' ? 'active' : ''; ?>" href="/login">Login</a></li>
                 <?php endif;?>
 
             </ul>
