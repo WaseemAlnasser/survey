@@ -12,7 +12,7 @@ $capsule = new Capsule;
 $capsule->addConnection([
     'driver' => 'mysql',
     'host' => 'localhost',
-    'database' => 'survey',
+    'database' => 'survey121',
     'username' => 'vssqgod1f8uf',
     'password' => 'u2mn+Hq0*_(w',
     'charset' => 'utf8',
