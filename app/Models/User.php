@@ -13,8 +13,8 @@ $capsule->addConnection([
     'driver' => 'mysql',
     'host' => 'localhost',
     'database' => 'survey121',
-    'username' => 'waseem121',
-    'password' => 'u2mn+Hq0*_(w',
+    'username' => 'vssqgod1f8uf',
+    'password' => 'brXuL#UQu6!7',
     'charset' => 'utf8',
     'collation' => 'utf8_unicode_ci',
 ]);
