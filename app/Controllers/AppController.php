@@ -70,8 +70,8 @@ class AppController {
         // check if email exists
 
         $user = User::where('email', $email);
-        if ($user) {
-            echo $user->email;
+        if ($user != null) {
+            echo "Email already exists";
             return ;
         }
 
