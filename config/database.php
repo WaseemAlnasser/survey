@@ -5,7 +5,7 @@ return [
         'mysql' => [
             'driver' => 'mysql',
             'host' => 'localhost',
-            'database' => 'surveys121',
+            'database' => 'survey121',
             'username' => 'vssqgod1f8uf',
             'password' => 'u2mn+Hq0*_(w',
             'charset' => 'utf8mb4',
