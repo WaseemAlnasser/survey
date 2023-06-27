@@ -7,7 +7,7 @@
     }
 
    function url($path){
-        return 'http://localhost/php'.$path;
+        return 'alnasserwaseem.site'.$path;
    }
 
    function user(){

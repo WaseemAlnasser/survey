@@ -1,6 +1,6 @@
 <?php
-require_once 'app/core/Router.php';
-require_once 'app/core/Request.php';
+require_once 'app/Core/Router.php';
+require_once 'app/Core/Request.php';
 require_once 'app/Controllers/AppController.php';
 
 
