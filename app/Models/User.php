@@ -14,7 +14,7 @@ $capsule->addConnection([
     'host' => 'localhost',
     'database' => 'survey',
     'username' => 'vssqgod1f8uf',
-    'password' => 'brXuL#UQu6!7',
+    'password' => 'u2mn+Hq0*_(w',
     'charset' => 'utf8',
     'collation' => 'utf8_unicode_ci',
 ]);
