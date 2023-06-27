@@ -96,6 +96,25 @@
 <script src="<?php echo public_path('vendor/swiper/swiper-bundle.min.js');?>"></script>
 <script src="<?php echo public_path('vendor/waypoints/noframework.waypoints.js');?>"></script>
 <script src="<?php echo public_path('vendor/php-email-form/validate.js');?>"></script>
-
+<script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
 <!-- Template Main JS File -->
 <script src="<?php echo public_path('main.js');?>"></script>
+
+<script>
+    $('#register-btn').on('click', function(e) {
+        alert('hello')
+        e.preventDefault();
+        $.ajax({
+            type: 'POST',
+            url: '/register',
+            data: $('#register-form').serialize(),
+            success: function(data) {
+                console.log(data);
+                if (data.status === 'success') {
+                    alert('Registration successful');
+                    window.location.href = '/login';
+                }
+            }
+        });
+    });
+</script>
