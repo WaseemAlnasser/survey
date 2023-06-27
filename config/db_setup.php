@@ -3,8 +3,8 @@
 
 // SQL commands to create the database and tables
 $servername = "localhost";       // MySQL server name
-$username = "root";     // MySQL username
-$password = "";     // MySQL password
+$username = "vssqgod1f8uf";     // MySQL username
+$password = "brXuL#UQu6!7";     // MySQL password
 $database = "survey"; // Database name
 
 // Create a connection
