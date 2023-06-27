@@ -16,7 +16,7 @@ include "views/head.php";
                                 <p class="text-center small">Enter your personal details to create account</p>
                             </div>
 
-                            <form method="post" action="<?php echo url('/register') ?>" class="row g-3 needs-validation" novalidate>
+                            <form method="post" action="/register" class="row g-3 needs-validation" novalidate>
                                 <div class="col-12">
                                     <label for="yourName" class="form-label">Full Name</label>
                                     <input type="text" name="name" class="form-control" id="yourName" required>
@@ -52,7 +52,7 @@ include "views/head.php";
                                     <button class="btn btn-primary w-100" type="submit">Create Account</button>
                                 </div>
                                 <div class="col-12">
-                                    <p class="small mb-0">Already have an account? <a href="<?php echo url('/login')?>">Log in</a></p>
+                                    <p class="small mb-0">Already have an account? <a href="/login'">Log in</a></p>
                                 </div>
                             </form>
                         </div>

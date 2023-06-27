@@ -17,7 +17,7 @@ include "views/head.php";
                                     <h5 class="card-title text-center pb-0 fs-4">Login to Your Account</h5>
                                     <p class="text-center small">Enter your email & password to login</p>
                                 </div>
-                                <form method="post" action="<?php echo url('/login') ?>" class="row g-3 needs-validation" novalidate>
+                                <form method="post" action="/login" class="row g-3 needs-validation" novalidate>
 
                                     <div class="col-12">
                                         <label for="yourUsername" class="form-label">email</label>
@@ -37,7 +37,7 @@ include "views/head.php";
                                         <button class="btn btn-primary w-100" type="submit">Login</button>
                                     </div>
                                     <div class="col-12">
-                                        <p class="small mb-0">Don't have account? <a href="<?php echo url('/register')?>">Create an account</a></p>
+                                        <p class="small mb-0">Don't have account? <a href="/register">Create an account</a></p>
                                     </div>
                                 </form>
                             </div>
