@@ -71,7 +71,8 @@ class AppController {
 
         $user = User::where('email', $email);
         if ($user) {
-            return "Email already exists";
+            echo "Email already exists";
+            return ;
         }
 
         $user = new User();
