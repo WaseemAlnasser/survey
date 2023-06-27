@@ -27,10 +27,9 @@ class AppController {
         $password = $_POST['password'];
         $user = User::where('email', $email)->first();
         if ($user && $password == $user->password) {
-        session_start();
-        $_SESSION['user'] = $user;
-        header("Location: " . url('/'));
-
+            session_start();
+            $_SESSION['user'] = $user;
+            header("Location: " . url('/'));
         } else {
             echo "Invalid credentials";
         }
@@ -72,8 +71,7 @@ class AppController {
 
         $user = User::where('email', $email);
         if ($user) {
-            echo "Email already exists";
-            return;
+            return "Email already exists";
         }
 
         $user = new User();
