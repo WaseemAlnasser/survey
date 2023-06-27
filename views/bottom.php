@@ -100,21 +100,3 @@
 <!-- Template Main JS File -->
 <script src="<?php echo public_path('main.js');?>"></script>
 
-<script>
-    $('#register-btn').on('click', function(e) {
-        alert('hello')
-        e.preventDefault();
-        $.ajax({
-            type: 'POST',
-            url: '/register',
-            data: $('#register-form').serialize(),
-            success: function(data) {
-                console.log(data);
-                if (data.status === 'success') {
-                    alert('Registration successful');
-                    window.location.href = '/login';
-                }
-            }
-        });
-    });
-</script>
