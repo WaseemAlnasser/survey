@@ -29,7 +29,7 @@ class AppController {
         if ($user && $password == $user->password) {
             session_start();
             $_SESSION['user'] = $user;
-            header("Location: " . url('/'));
+            header("Location: " . '/');
         } else {
             echo "Invalid credentials";
         }
@@ -71,7 +71,7 @@ class AppController {
 
         $user = User::where('email', $email);
         if ($user) {
-            echo "Email already exists";
+            echo $user;
             return ;
         }
 
@@ -81,7 +81,7 @@ class AppController {
         $user->password = $password;
         $user->save();
 
-        header("Location: " . url('/login'));
+        header("Location: " . 'login');
     }
 }
 
