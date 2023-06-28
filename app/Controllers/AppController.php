@@ -12,13 +12,14 @@ class AppController {
 
     public function logout()
     {
-        session_start();
         session_destroy();
-        header("Location: " . url('/'));
+        header("Location: " .'/');
     }
 
     public function login() {
-        require "views/login.php";
+        isAuthMiddleware(function (){
+            require "views/login.php";
+        });
     }
 
     public function login_post()
@@ -27,7 +28,6 @@ class AppController {
         $password = $_POST['password'];
         $user = User::where('email', $email)->first();
         if ($user && $password == $user->password) {
-            session_start();
             $_SESSION['user'] = $user;
             header("Location: " . '/');
         } else {
@@ -37,7 +37,11 @@ class AppController {
     }
 
     public function register() {
-        require "views/register.php";
+        isAuthMiddleware(function (){
+            require "views/register.php";
+        });
+
+
     }
 
     public function register_post()
@@ -82,6 +86,13 @@ class AppController {
         $user->save();
 
         header("Location: " . 'login');
+    }
+
+    public function admin()
+    {
+        adminMiddleware(function (){
+            require "views/admin/index.php";
+        });
     }
 }
 

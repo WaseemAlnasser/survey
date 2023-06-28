@@ -19,4 +19,6 @@ $router->get('register', [AppController::class, 'register']);
 
 $router->post('register', [AppController::class, 'register_post']);
 
+$router->get('admin', [AppController::class, 'admin']);
+
 $router->resolve(Request::uri(), Request::method());

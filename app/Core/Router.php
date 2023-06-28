@@ -27,8 +27,7 @@ class Router
     public function resolve($uri, $method)
     {
 
-        // check if uri has public in it
-        if ($this->isPublicFileRoute($uri)) {
+        if (strpos($uri, 'public') === 0) {
             $this->servePublicFile($uri);
             return;
         }
@@ -37,7 +36,6 @@ class Router
             $action = $this->{$method}[$uri];
             $controller = new $action[0];
             $method = $action[1];
-
             $controller->{$method}();
         } else {
             require 'views/404.php';
@@ -46,25 +44,25 @@ class Router
     }
 
 
-    private function isPublicFileRoute($uri)
-    {
-        // check if uri has public in it
-       if(strpos($uri, 'public') !== false) {
-           return true;
-       }else{
-           return false;
-       }
-    }
-
+//    private function isPublicFileRoute($uri)
+//    {
+//        // check if uri has public in it
+//       if(strpos($uri, 'public') !== false) {
+//           return true;
+//       }else{
+//           return false;
+//       }
+//    }
+//
     private function servePublicFile($uri)
     {
 
 
         // Get the actual file path based on the URI
         $filePath = $uri;
-
         // Check if the file exists
         if (file_exists($filePath)) {
+
             // Determine the appropriate MIME type
             $mimeType = mime_content_type($filePath);
 
