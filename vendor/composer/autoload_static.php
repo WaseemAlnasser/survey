@@ -12,6 +12,8 @@ class ComposerStaticInit63ba4c93cb48623d67274c9f3febe607
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
         'a1105708a18b76903365ca1c4aa61b02' => __DIR__ . '/..' . '/symfony/translation/Resources/functions.php',
         '72579e7bd17821bb1321b87411366eae' => __DIR__ . '/..' . '/illuminate/support/helpers.php',
+        '2cffec82183ee1cea088009cef9a6fc3' => __DIR__ . '/..' . '/ezyang/htmlpurifier/library/HTMLPurifier.composer.php',
+        'cb61d74ad51d00867155534456b38b23' => __DIR__ . '/..' . '/mews/purifier/src/helpers.php',
     );
 
     public static $prefixLengthsPsr4 = array (
@@ -25,18 +27,25 @@ class ComposerStaticInit63ba4c93cb48623d67274c9f3febe607
             'Symfony\\Polyfill\\Mbstring\\' => 26,
             'Symfony\\Contracts\\Translation\\' => 30,
             'Symfony\\Component\\Translation\\' => 30,
+            'Symfony\\Component\\Finder\\' => 25,
         ),
         'P' => 
         array (
             'Psr\\SimpleCache\\' => 16,
             'Psr\\Container\\' => 14,
         ),
+        'M' => 
+        array (
+            'Mews\\Purifier\\' => 14,
+        ),
         'I' => 
         array (
             'Illuminate\\Support\\' => 19,
+            'Illuminate\\Filesystem\\' => 22,
             'Illuminate\\Database\\' => 20,
             'Illuminate\\Contracts\\' => 21,
             'Illuminate\\Container\\' => 21,
+            'Illuminate\\Config\\' => 18,
         ),
         'D' => 
         array (
@@ -73,6 +82,10 @@ class ComposerStaticInit63ba4c93cb48623d67274c9f3febe607
         array (
             0 => __DIR__ . '/..' . '/symfony/translation',
         ),
+        'Symfony\\Component\\Finder\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/finder',
+        ),
         'Psr\\SimpleCache\\' => 
         array (
             0 => __DIR__ . '/..' . '/psr/simple-cache/src',
@@ -81,12 +94,20 @@ class ComposerStaticInit63ba4c93cb48623d67274c9f3febe607
         array (
             0 => __DIR__ . '/..' . '/psr/container/src',
         ),
+        'Mews\\Purifier\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/mews/purifier/src',
+        ),
         'Illuminate\\Support\\' => 
         array (
             0 => __DIR__ . '/..' . '/illuminate/collections',
             1 => __DIR__ . '/..' . '/illuminate/conditionable',
             2 => __DIR__ . '/..' . '/illuminate/macroable',
             3 => __DIR__ . '/..' . '/illuminate/support',
+        ),
+        'Illuminate\\Filesystem\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/illuminate/filesystem',
         ),
         'Illuminate\\Database\\' => 
         array (
@@ -100,6 +121,10 @@ class ComposerStaticInit63ba4c93cb48623d67274c9f3febe607
         array (
             0 => __DIR__ . '/..' . '/illuminate/container',
         ),
+        'Illuminate\\Config\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/illuminate/config',
+        ),
         'Doctrine\\Inflector\\' => 
         array (
             0 => __DIR__ . '/..' . '/doctrine/inflector/lib/Doctrine/Inflector',
@@ -111,6 +136,16 @@ class ComposerStaticInit63ba4c93cb48623d67274c9f3febe607
         'Brick\\Math\\' => 
         array (
             0 => __DIR__ . '/..' . '/brick/math/src',
+        ),
+    );
+
+    public static $prefixesPsr0 = array (
+        'H' => 
+        array (
+            'HTMLPurifier' => 
+            array (
+                0 => __DIR__ . '/..' . '/ezyang/htmlpurifier/library',
+            ),
         ),
     );
 
@@ -128,6 +163,7 @@ class ComposerStaticInit63ba4c93cb48623d67274c9f3febe607
         return \Closure::bind(function () use ($loader) {
             $loader->prefixLengthsPsr4 = ComposerStaticInit63ba4c93cb48623d67274c9f3febe607::$prefixLengthsPsr4;
             $loader->prefixDirsPsr4 = ComposerStaticInit63ba4c93cb48623d67274c9f3febe607::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInit63ba4c93cb48623d67274c9f3febe607::$prefixesPsr0;
             $loader->classMap = ComposerStaticInit63ba4c93cb48623d67274c9f3febe607::$classMap;
 
         }, null, ClassLoader::class);

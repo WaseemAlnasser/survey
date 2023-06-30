@@ -4,6 +4,7 @@ include "views/head.php";
 
 
         <section id="hero" class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
+
             <div class="container">
                 <div class="row justify-content-center">
                     <div class="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
@@ -13,6 +14,16 @@ include "views/head.php";
                         </div>
                         <div class="card mb-3">
                             <div class="card-body">
+                                <?php
+                                if (isset($_SESSION['msg'])):
+                                    ?>
+                                    <div class="alert alert-<?php echo $_SESSION['msg']['type']; ?> alert-dismissible fade show" role="alert">
+                                        <?php echo $_SESSION['msg']['message']; ?>
+                                    </div>
+                                    <?php
+                                    unset($_SESSION['msg']);
+                                endif;
+                                ?>
                                 <div class="pt-4 pb-2">
                                     <h5 class="card-title text-center pb-0 fs-4">Login to Your Account</h5>
                                     <p class="text-center small">Enter your email & password to login</p>
