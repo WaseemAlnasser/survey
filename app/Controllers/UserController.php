@@ -24,18 +24,26 @@ class UserController {
 
         // validate email
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            echo "Invalid email format";
+            $message = "Invalid email format";
+            $_SESSION['msg'] = ["type" => "danger", "message" => $message];
+            header("Location: " . '/admin/users/create');
             return;
         }
 
         if (empty($email)) {
-            echo "Email is required";
+            $message = "Email is required";
+            $_SESSION['msg'] = ["type" => "danger", "message" => $message];
+            header("Location: " . '/admin/users/create');
             return;
         }
 
-        if (!empty($password) && $password != $password_confirm) {
-            echo "Password and password confirmation do not match";
-            return;
+        if (!empty($password) ) {
+            if ($password != $password_confirm) {
+                $message = "Password and password confirmation do not match";
+                $_SESSION['msg'] = ["type" => "danger", "message" => $message];
+                header("Location: " . '/admin/users/create');
+                return;
+            }
         }
 
         $user = new User();
@@ -77,20 +85,26 @@ class UserController {
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
             $message = "Invalid email format";
             $_SESSION['msg'] = ["type" => "danger", "message" => $message];
-            header("Location: " . '/admin/users/all');
+            header("Location: " . '/admin/user/edit?id=' . $id);
+            return;
         }
 
         if (empty($email)) {
             $message = "Email is required";
             $_SESSION['msg'] = ["type" => "danger", "message" => $message];
-            header("Location: " . '/admin/users/all');
+            header("Location: " . '/admin/user/edit?id=' . $id);
+            return;
         }
 
 
-        if (!empty($password) && $password != $password_confirm) {
-            $message = "Password and password confirmation do not match";
-            $_SESSION['msg'] = ["type" => "danger", "message" => $message];
-            header("Location: " . '/admin/users/all');
+        if (!empty($password) ) {
+            if ($password != $password_confirm){
+                $message = "Password and password confirmation do not match";
+                $_SESSION['msg'] = ["type" => "danger", "message" => $message];
+                header("Location: " . '/admin/user/edit?id=' . $id);
+                return;
+            }
+
         }
 
         $user = User::find($id);

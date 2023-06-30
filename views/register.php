@@ -9,6 +9,11 @@ include "views/head.php";
                     <div class="card mb-3">
 
                         <div class="card-body">
+
+                            <div class="pt-4 pb-2">
+                                <h5 class="card-title text-center pb-0 fs-4">Create an Account</h5>
+                                <p class="text-center small">Enter your personal details to create account</p>
+                            </div>
                             <?php
                             if (isset($_SESSION['msg'])):
                                 ?>
@@ -19,11 +24,6 @@ include "views/head.php";
                                 unset($_SESSION['msg']);
                             endif;
                             ?>
-                            <div class="pt-4 pb-2">
-                                <h5 class="card-title text-center pb-0 fs-4">Create an Account</h5>
-                                <p class="text-center small">Enter your personal details to create account</p>
-                            </div>
-
                             <form method="post" id="register-form" action="/register" class="row g-3 needs-validation" >
                                 <div class="col-12">
                                     <label for="yourName" class="form-label">Full Name</label>

@@ -41,7 +41,7 @@ include "views/head.php";
         <section id="surveys" class="about">
             <div class="container" data-aos="fade-up">
                 <div class="section-title">
-                    <h2>Featured Surveys</h2>
+                    <h2>our Surveys</h2>
                 </div>
                 <div class="row content">
                     <?php
@@ -72,6 +72,8 @@ include "views/head.php";
 
             </div>
         </section><!-- End About Us Section -->
+
+
 
 
 

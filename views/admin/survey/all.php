@@ -31,7 +31,7 @@ $customScripts = '<script src="/public/assets/custom_scripts/survey.js"></script
                     <th scope="col">#</th>
                     <th scope="col">title</th>
                     <th scope="col">description</th>
-                      <th scope="col">Featured</th>
+                      <th scope="col">Published</th>
                       <th scope="col">success message</th>
                     <th scope="col">submissions</th>
                     <th scope="col">actions</th>
@@ -45,7 +45,7 @@ $customScripts = '<script src="/public/assets/custom_scripts/survey.js"></script
                     <th scope="row"><?php echo $survey->id?></th>
                     <td> <?php echo $survey->title?></td>
                     <td><?php echo $survey->description?></td>
-                    <td><?php echo $survey->featured == 1 ?  'yes' : 'no'?></td>
+                    <td><span class="<?php echo $survey->featured == 1 ?  'text-success' : 'text-danger'?>"><?php echo $survey->featured == 1 ?  'yes' : 'no'?></span></td>
                     <td><?php echo $survey->success_message?></td>
                     <td><?php echo $survey->submit_count?></td>
                     <td>
@@ -77,26 +77,26 @@ $customScripts = '<script src="/public/assets/custom_scripts/survey.js"></script
                     <h5 class="modal-title">Create New Survey</h5>
                     <button type="button" class="close" data-bs-dismiss="modal"><span>×</span></button>
                 </div>
-                <form action="/admin/survey/store" method="post" enctype="multipart/form-data">
+                <form action="/admin/survey/store" class="needs-validation" novalidate method="post" enctype="multipart/form-data">
                     <div class="modal-body">
                         <div class="form-group mb-4">
                             <label for="text">Title</label>
-                            <input type="text" class="form-control" name="title" placeholder="Enter Title">
+                            <input type="text" class="form-control" required name="title" placeholder="Enter Title">
                         </div>
                         <div class="form-group mb-4">
                             <label for="text">Description</label>
-                            <textarea class="form-control" name="description" placeholder="Enter Description"></textarea>
+                            <textarea class="form-control" name="description" required placeholder="Enter Description"></textarea>
                         </div>
 
                         <div class="form-group mb-2">
                             <label for="success_message">Success Message</label>
-                            <input type="text" class="form-control" name="success_message" placeholder="form submit success message">
+                            <input type="text" class="form-control" name="success_message" required placeholder="form submit success message">
                         </div>
                         <div class="form-group mb-2">
-                            <label for="admin" class="col-md-4 col-lg-3 col-form-label">Featured</label>
+                            <label for="admin" class="col-md-4 col-lg-3 col-form-label">Publish</label>
                             <div class="form-check form-switch">
                                 <input class="form-check-input" type="checkbox" value="1" id="flexSwitchCheckChecked"  name="featured">
-                                <label class="form-check-label" for="flexSwitchCheckChecked"> show in featured inside home page</label>
+                                <label class="form-check-label" for="flexSwitchCheckChecked"> show for users</label>
                             </div>
                         </div>
                     </div>

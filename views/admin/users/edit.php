@@ -56,7 +56,7 @@ include "views/admin/head.php";
             <label for="admin" class="col-md-4 col-lg-3 col-form-label">Admin</label>
             <div class="col-md-8 col-lg-9">
                 <div class="form-check form-switch">
-                    <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" <?php echo $user->admin == 1 ? 'checked' : '' ?> name="admin">
+                    <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" value="1" <?php echo $user->admin == 1 ? 'checked' : '' ?> name="admin">
                     <label class="form-check-label" for="flexSwitchCheckChecked">Check if you want to give user admin privileges</label>
                 </div>
             </div>

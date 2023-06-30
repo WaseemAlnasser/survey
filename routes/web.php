@@ -21,7 +21,13 @@ $router->get('register', [AppController::class, 'register']);
 
 $router->post('register', [AppController::class, 'register_post']);
 
+$router->get('surveys', [AppController::class, 'surveys']);
+
 $router->get('survey', [SurveyController::class, 'survey']);
+
+$router->get('account', [AppController::class, 'account']);
+
+$router->post('account-edit', [AppController::class, 'account_edit']);
 
 $router->post('survey/submit', [SurveyController::class, 'submit']);
 
@@ -46,7 +52,7 @@ $router->get('admin/users/all', [UserController::class, 'all']);
 $router->get('admin/user/edit', [UserController::class, 'edit']);
 
 
-$router->post('admin/user/update', [UserController::class, 'update']);
+$router->post('admin/users/update', [UserController::class, 'update']);
 
 $router->get('admin/users/create', [UserController::class, 'create']);
 

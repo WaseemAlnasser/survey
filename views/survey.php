@@ -31,14 +31,12 @@ include "views/head.php";
     <section id="surveys" class="about">
         <div class="container" data-aos="fade-up">
             <div class="section-title">
-
             </div>
-            <form class="row content" id="survey-form" method="post" action="/survey/submit" >
+            <form class="row content needs-validation" novalidate id="survey-form" method="post" action="/survey/submit" >
                 <input type="hidden" name="survey_id" value="<?php echo $survey->id ?>">
                 <?php
                 foreach ($questions as $question) {
                     ?>
-
                     <?php
                     render_question($question);
                 }

@@ -86,7 +86,7 @@ include "views/admin/head.php";
                                     <tr>
                                         <th scope="col">#</th>
                                         <th scope="col">title</th>
-                                        <th scope="col">Featured</th>
+                                        <th scope="col">Published</th>
                                         <th scope="col">submissions</th>
                                     </tr>
                                     </thead>
@@ -112,80 +112,29 @@ include "views/admin/head.php";
 
                         </div>
                     </div>
-
-
-
-
                 </div>
             </div>
             <div class="col-lg-4">
 
                 <div class="card">
-                    <div class="filter">
-                        <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
-                        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                            <li class="dropdown-header text-start">
-                                <h6>Filter</h6>
-                            </li>
-
-                            <li><a class="dropdown-item" href="#">Today</a></li>
-                            <li><a class="dropdown-item" href="#">This Month</a></li>
-                            <li><a class="dropdown-item" href="#">This Year</a></li>
-                        </ul>
-                    </div>
 
                     <div class="card-body">
-                        <h5 class="card-title">Recent Activity <span>| Today</span></h5>
+                        <h5 class="card-title">Recent Submissions</h5>
 
                         <div class="activity">
-
+                           <?php foreach ($recent_submissions as $submission):?>
                             <div class="activity-item d-flex">
-                                <div class="activite-label">32 min</div>
-                                <i class='bi bi-circle-fill activity-badge text-success align-self-start'></i>
-                                <div class="activity-content">
-                                    Quia quae rerum <a href="#" class="fw-bold text-dark">explicabo officiis</a> beatae
+                                <div class=" me-2">
+                                    <?php echo $submission->user->name ?> submitted  <a href="#" class="fw-bold text-dark"><?php echo $submission->survey->title?> </a>
                                 </div>
-                            </div><!-- End activity item-->
 
-                            <div class="activity-item d-flex">
-                                <div class="activite-label">56 min</div>
-                                <i class='bi bi-circle-fill activity-badge text-danger align-self-start'></i>
-                                <div class="activity-content">
-                                    Voluptatem blanditiis blanditiis eveniet
-                                </div>
-                            </div><!-- End activity item-->
+                                <div class=""><?php echo Carbon::parse($submission->created_at)->diffForHumans()?></div>
+<!--                                <i class='bi bi-circle-fill activity-badge  align-self-start'></i>-->
 
-                            <div class="activity-item d-flex">
-                                <div class="activite-label">2 hrs</div>
-                                <i class='bi bi-circle-fill activity-badge text-primary align-self-start'></i>
-                                <div class="activity-content">
-                                    Voluptates corrupti molestias voluptatem
-                                </div>
                             </div><!-- End activity item-->
+                               <hr>
+                             <?php endforeach;?>
 
-                            <div class="activity-item d-flex">
-                                <div class="activite-label">1 day</div>
-                                <i class='bi bi-circle-fill activity-badge text-info align-self-start'></i>
-                                <div class="activity-content">
-                                    Tempore autem saepe <a href="#" class="fw-bold text-dark">occaecati voluptatem</a> tempore
-                                </div>
-                            </div><!-- End activity item-->
-
-                            <div class="activity-item d-flex">
-                                <div class="activite-label">2 days</div>
-                                <i class='bi bi-circle-fill activity-badge text-warning align-self-start'></i>
-                                <div class="activity-content">
-                                    Est sit eum reiciendis exercitationem
-                                </div>
-                            </div><!-- End activity item-->
-
-                            <div class="activity-item d-flex">
-                                <div class="activite-label">4 weeks</div>
-                                <i class='bi bi-circle-fill activity-badge text-muted align-self-start'></i>
-                                <div class="activity-content">
-                                    Dicta dolorem harum nulla eius. Ut quidem quidem sit quas
-                                </div>
-                            </div><!-- End activity item-->
 
                         </div>
 

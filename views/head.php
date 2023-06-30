@@ -27,8 +27,31 @@
                     ?>
                     <li><a class="nav-link scrollto <?php echo $url == 'dashboard' ? 'active' : ''; ?>" href="/admin">Dashboard</a></li>
                     <?php endif;?>
-                    <li><a class="nav-link scrollto <?php echo $url == 'surveys' ? 'active' : ''; ?>" href="/surveys">surveys</a></li>
-                    <li><a class="nav-link scrollto" href="/logout">logout</a></li>
+                    <li class="nav-link dropdown">
+                        <a class="nav-link  d-flex align-items-center " href="#" data-bs-toggle="dropdown">
+                            <span class="d-none d-md-block dropdown-toggle ps-2"><?php echo user()->name ?></span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-start dropdown-menu-arrow profile">
+                            <li>
+                                <a class="dropdown-item " href="/account">
+                                    <i class="bi bi-gear"></i>
+                                    <span>Account Settings</span>
+                                </a>
+                            </li>
+
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+
+                            <li>
+                                <a class="dropdown-item d-flex align-items-center" href="/logout">
+                                    <i class="bi bi-box-arrow-right"></i>
+                                    <span>Sign Out</span>
+                                </a>
+                            </li>
+
+                        </ul>
+                    </li>
                 <?php else:?>
                     <li><a class="nav-link scrollto <?php echo $url == 'register' ? 'active' : ''; ?>" href="/register">Register</a></li>
                     <li><a class="nav-link scrollto <?php echo $url == 'login' ? 'active' : ''; ?>" href="/login">Login</a></li>

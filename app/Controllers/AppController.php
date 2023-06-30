@@ -37,7 +37,7 @@ class AppController {
         } else {
            $message = "Invalid credentials";
            $_SESSION['msg'] = ["type" => "danger", "message" => $message ];
-          header("Location: " . '/login');
+            header("Location: " . '/login');
           return;
         }
 
@@ -106,6 +106,71 @@ class AppController {
 
         $_SESSION['user'] = $user;
         header("Location: " . '/');
+    }
+
+    public function surveys()
+    {
+        $surveys = Survey::all();
+        require "views/surveys.php";
+    }
+
+    public function account()
+    {
+        authMiddleware(function (){
+            $user = User::find($_SESSION['user']->id);
+            require "views/account.php";
+        });
+    }
+
+    public function account_edit()
+    {
+        authMiddleware(function (){
+            $user = User::find($_SESSION['user']->id);
+            $name = $_POST['name'];
+            $email = $_POST['email'];
+            $password = $_POST['password'];
+            $password_confirm = $_POST['password_confirmation'];
+
+            // validate email
+            if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                $message = "Invalid email format";
+                $_SESSION['msg'] = ["type" => "danger", "message" => $message];
+                header("Location: " . '/account');
+                return;
+            }
+
+            if (empty($email)) {
+                $message = "Email is required";
+                $_SESSION['msg'] = ["type" => "danger", "message" => $message];
+                header("Location: " . '/account');
+                return;
+            }
+
+
+            if (!empty($password) ) {
+                if ($password != $password_confirm){
+                    $message = "Password and password confirmation do not match";
+                    $_SESSION['msg'] = ["type" => "danger", "message" => $message];
+                    header("Location: " . '/account');
+                    return;
+                }
+
+            }
+
+            $user->name = $name;
+            $user->email = $email;
+            if (!empty($password)) {
+                $user->password = $password;
+            }
+            $user->save();
+
+            if ($_SESSION['user']->id == $id) {
+                $_SESSION['user'] = $user;
+            }
+            $message = "data updated successfully";
+            $_SESSION['msg'] = ["type" => "success", "message" => $message];
+            header("Location: " . '/account');
+        });
     }
 
     public function admin()

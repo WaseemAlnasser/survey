@@ -26,10 +26,10 @@ $customScripts = '<script src="/public/assets/custom_scripts/survey.js"></script
                                 <input type="text" class="form-control" required name="success_message" value="<?php echo $survey->success_message?>" placeholder="form submit success message">
                             </div>
                             <div class="form-group mb-4">
-                                <label for="admin" class="col-md-4 col-lg-3 col-form-label">Featured</label>
+                                <label for="admin" class="col-md-4 col-lg-3 col-form-label">Publish</label>
                                 <div class="form-check form-switch">
                                     <input class="form-check-input" type="checkbox" <?php if ($survey->featured == 1) echo 'checked'?>  value="1" id="flexSwitchCheckChecked"  name="featured">
-                                    <label class="form-check-label" for="flexSwitchCheckChecked"> show in featured inside home page</label>
+                                    <label class="form-check-label" for="flexSwitchCheckChecked"> show for users</label>
                                 </div>
                             </div>
                             <?php

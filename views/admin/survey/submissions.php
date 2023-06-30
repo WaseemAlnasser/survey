@@ -25,298 +25,329 @@ $customScripts = '<script src="/public/assets/custom_scripts/survey.js"></script
         $multiple_index = 0;
         ?>
         <?php foreach ($questions as $question): ?>
-        <div class="col-lg-6">
-            <div class="card">
                 <?php if ($question->type == 'text'): ?>
-                <div class="card-body">
-                    <h5 class="card-title"><?php echo $question->label?></h5>
-                    <canvas id="barChart<?php echo $question->id?>" class="my-4 w-100" style="max-height: 400px;"></canvas>
-                    <?php $answers = $question->answers ?>
-                    <script>
-                        // get all the $answers->response in an array
-                        <?php $responses = []; ?>
-                        <?php foreach ($answers as $answer): ?>
-                        <?php $responses[] = $answer->response; ?>
-                        <?php endforeach; ?>
+                <div class="col-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title"><?php echo $question->label?></h5>
+                            <canvas id="barChart<?php echo $question->id?>" class="my-4 w-100" style="max-height: 400px;"></canvas>
+                            <?php $answers = $question->answers ?>
+                            <script>
+                                // get all the $answers->response in an array
+                                <?php $responses = []; ?>
+                                <?php foreach ($answers as $answer): ?>
+                                <?php $responses[] = $answer->response; ?>
+                                <?php endforeach; ?>
 
-                        document.addEventListener("DOMContentLoaded", () => {
-                            new Chart(document.querySelector('#barChart<?php echo $question->id?>'), {
-                                type: 'bar',
-                                data: {
-                                    labels: [
-                                        <?php foreach ($answers as $answer): ?>
-                                        '<?php echo trim($answer->response)?>',
-                                        <?php endforeach; ?>
-                                    ],
-                                    datasets: [{
-                                        label: 'Line Chart',
-                                        data: [
-                                            <?php foreach ($answers as $answer): ?>
-                                           // check how many times the $ansewer->response appears in the $responses array
-                                            <?php $count = 0; ?>
-                                            <?php foreach ($responses as $response): ?>
-                                            <?php if (trim($response) == trim($answer->response)): ?>
-                                            <?php $count++; ?>
-                                            <?php endif; ?>
-                                            <?php endforeach; ?>
-                                            <?php echo $count; ?>,
-                                            <?php endforeach; ?>
-                                        ],
-                                        backgroundColor: [
-                                            <?php foreach ($answers as $option): ?>
-                                            'rgba(<?php echo rand(0,255)?>, <?php echo rand(0,255)?>, <?php echo rand(0,255)?>, 0.2)',
-                                            <?php endforeach; ?>
-                                        ],
-                                        }]
-                                    },
-                                options: {
-                                        scales: {
-                                            y: {
-                                                beginAtZero: true
+                                document.addEventListener("DOMContentLoaded", () => {
+                                    new Chart(document.querySelector('#barChart<?php echo $question->id?>'), {
+                                        type: 'bar',
+                                        data: {
+                                            labels: [
+                                                <?php foreach ($answers as $answer): ?>
+                                                '<?php echo trim($answer->response)?>',
+                                                <?php endforeach; ?>
+                                            ],
+                                            datasets: [{
+                                                label: 'Line Chart',
+                                                data: [
+                                                    <?php foreach ($answers as $answer): ?>
+                                                   // check how many times the $ansewer->response appears in the $responses array
+                                                    <?php $count = 0; ?>
+                                                    <?php foreach ($responses as $response): ?>
+                                                    <?php if (trim($response) == trim($answer->response)): ?>
+                                                    <?php $count++; ?>
+                                                    <?php endif; ?>
+                                                    <?php endforeach; ?>
+                                                    <?php echo $count; ?>,
+                                                    <?php endforeach; ?>
+                                                ],
+                                                backgroundColor: [
+                                                    <?php foreach ($answers as $option): ?>
+                                                    'rgba(<?php echo rand(0,255)?>, <?php echo rand(0,255)?>, <?php echo rand(0,255)?>, 0.2)',
+                                                    <?php endforeach; ?>
+                                                ],
+                                                }]
+                                            },
+                                        options: {
+                                                scales: {
+                                                    y: {
+                                                        beginAtZero: true
+                                                    }
+                                                }
+                                            }
+                                        });
+                                    });
+                            </script>
+                        </div>
+                    </div>
+                </div>
+                    <?php elseif (($question->type == 'select' &&  $select_index == 0)  || ($question->type == 'multiselect' && $multiple_index == 1)): ?>
+                <div class="col-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title"><?php echo $question->label?></h5>
+                            <canvas id="lineChart<?php echo $question->id?>" style="max-height: 400px;"></canvas>
+                            <?php $options = explode(',', $question->options); ?>
+                            <script>
+                                document.addEventListener("DOMContentLoaded", () => {
+                                    new Chart(document.querySelector('#lineChart<?php echo $question->id?>'), {
+                                        type: 'line',
+                                        data: {
+                                            labels: [
+                                                <?php foreach ($options as $option): ?>
+                                                '<?php echo trim($option)?>',
+                                                <?php endforeach; ?>
+                                            ],
+
+                                            <?php $answers = $question->answers ?>
+
+                                            datasets: [{
+                                                label: "<?php echo $question->label?>",
+                                                data: [
+                                                    <?php foreach ($options as $option): ?>
+                                                    <?php $count = 0; ?>
+                                                    <?php foreach ($answers as $answer): ?>
+                                                    <?php if (trim($answer->response) == trim($option)): ?>
+                                                    <?php $count++; ?>
+                                                    <?php endif; ?>
+                                                    <?php endforeach; ?>
+                                                    <?php echo $count; ?>,
+                                                    <?php endforeach; ?>
+
+                                                ],
+                                                fill: false,
+                                                borderColor: 'rgba(<?php echo rand(0,255)?>, <?php echo rand(0,255)?>, <?php echo rand(0,255)?>, 1)',
+                                                tension: 0.1
+                                            }]
+                                        },
+                                        options: {
+                                            scales: {
+                                                y: {
+                                                    beginAtZero: true
+                                                }
                                             }
                                         }
-                                    }
+                                    });
                                 });
-                            });
-                    </script>
-                </div>
-                <?php elseif (($question->type == 'select' &&  $select_index == 0)  || ($question->type == 'multiselect' && $multiple_index == 1)): ?>
-                <div class="card-body">
-                    <h5 class="card-title"><?php echo $question->label?></h5>
-                    <canvas id="lineChart<?php echo $question->id?>" style="max-height: 400px;"></canvas>
-                    <?php $options = explode(',', $question->options); ?>
-                    <script>
-                        document.addEventListener("DOMContentLoaded", () => {
-                            new Chart(document.querySelector('#lineChart<?php echo $question->id?>'), {
-                                type: 'line',
-                                data: {
-                                    labels: [
-                                        <?php foreach ($options as $option): ?>
-                                        '<?php echo trim($option)?>',
-                                        <?php endforeach; ?>
-                                    ],
+                            </script>
+                            <!-- End Line CHart -->
 
-                                    <?php $answers = $question->answers ?>
+                        </div>
+                          <?php if ($question->type == 'select'){
+                                $select_index = 1;
 
-                                    datasets: [{
-                                        label: "<?php echo $question->label?>",
-                                        data: [
-                                            <?php foreach ($options as $option): ?>
-                                            <?php $count = 0; ?>
-                                            <?php foreach ($answers as $answer): ?>
-                                            <?php if (trim($answer->response) == trim($option)): ?>
-                                            <?php $count++; ?>
-                                            <?php endif; ?>
-                                            <?php endforeach; ?>
-                                            <?php echo $count; ?>,
-                                            <?php endforeach; ?>
-
-                                        ],
-                                        fill: false,
-                                        borderColor: 'rgb(75, 192, 192)',
-                                        tension: 0.1
-                                    }]
-                                },
-                                options: {
-                                    scales: {
-                                        y: {
-                                            beginAtZero: true
-                                        }
-                                    }
+                            } else{
+                                    $multiple_index = 0;
                                 }
-                            });
-                        });
-                    </script>
-                    <!-- End Line CHart -->
-
+                            ?>
+                        </div>
                 </div>
-                  <?php if ($question->type == 'select'){
-                        $select_index = 1;
-
-                    } else{
-                            $multiple_index = 0;
-                        }
-                    ?>
-
                 <?php
                 elseif (($question->type == 'radio' && $radio_index == 0) || ($question->type == 'select' && $select_index == 2)): ?>
-                    <div class="card-body">
-                        <h5 class="card-title"><?php echo $question->label?></h5>
-                        <canvas id="pieChart<?php echo $question->id?>" style="max-height: 400px;"></canvas>
-                        <?php $options = explode(',', $question->options); ?>
-                        <script>
-                            document.addEventListener("DOMContentLoaded", () => {
-                                new Chart(document.querySelector('#pieChart<?php echo $question->id?>'), {
-                                    type: 'pie',
-                                    data: {
-                                        labels: [
-                                            <?php foreach ($options as $option): ?>
-                                            '<?php echo trim($option)?>',
-                                            <?php endforeach; ?>
-                                        ],
-                                        <?php $answers = $question->answers ?>
+<!--                done-->
+                <div class="col-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title"><?php echo $question->label?></h5>
+                            <canvas id="pieChart<?php echo $question->id?>" style="max-height: 400px;"></canvas>
+                            <?php $options = explode(',', $question->options); ?>
+                            <script>
+                                document.addEventListener("DOMContentLoaded", () => {
+                                    new Chart(document.querySelector('#pieChart<?php echo $question->id?>'), {
+                                        type: 'pie',
+                                        data: {
+                                            labels: [
+                                                <?php foreach ($options as $option): ?>
+                                                '<?php echo trim($option)?>',
+                                                <?php endforeach; ?>
+                                            ],
+                                            <?php $answers = $question->answers ?>
 
-                                        datasets: [{
-                                            label: '<?php echo $question->label?>',
-                                            data: [
-                                                <?php foreach ($options as $option): ?>
-                                                <?php $count = 0; ?>
-                                                <?php foreach ($answers as $answer): ?>
-                                                <?php if (trim($answer->response) == trim($option)): ?>
-                                                <?php $count++; ?>
-                                                <?php endif; ?>
-                                                <?php endforeach; ?>
-                                                <?php echo $count; ?>,
-                                                <?php endforeach; ?>
-                                            ],
-                                            backgroundColor: [
-                                                <?php foreach ($options as $option): ?>
-                                                // a diffenrt color for each option
-                                                'rgba(<?php echo rand(0,255)?>, <?php echo rand(0,255)?>, <?php echo rand(0,255)?>, 0.2)',
-                                                <?php endforeach; ?>
-                                            ],
-                                            hoverOffset: 4
-                                        }]
-                                    }
+                                            datasets: [{
+                                                label: '<?php echo $question->label?>',
+                                                data: [
+                                                    <?php foreach ($options as $option): ?>
+                                                    <?php $count = 0; ?>
+                                                    <?php foreach ($answers as $answer): ?>
+                                                    <?php if (trim($answer->response) == trim($option)): ?>
+                                                    <?php $count++; ?>
+                                                    <?php endif; ?>
+                                                    <?php endforeach; ?>
+                                                    <?php echo $count; ?>,
+                                                    <?php endforeach; ?>
+                                                ],
+                                                backgroundColor: [
+                                                    <?php foreach ($options as $option): ?>
+                                                    // a diffenrt color for each option
+                                                    'rgba(<?php echo rand(0,255)?>, <?php echo rand(0,255)?>, <?php echo rand(0,255)?>, 0.7)',
+                                                    <?php endforeach; ?>
+                                                ],
+                                                hoverOffset: 4
+                                            }]
+                                        }
+                                    });
                                 });
-                            });
-                        </script>
-                        <!-- End Pie CHart -->
+                            </script>
+                            <!-- End Pie CHart -->
 
-                    </div>
-                    <?php if ($question->type == 'radio'){
-                         $radio_index = 1;
-                    }
-                    else{
-                         $select_index = 0;
-                    }
-                    ?>
+                        </div>
+                        <?php if ($question->type == 'radio'){
+                             $radio_index = 1;
+                        }
+                        else{
+                             $select_index = 0;
+                        }
+                        ?>
+                        </div>
+                </div>
                 <?php elseif ($question->type == 'multiselect' && $multiple_index == 0): ?>
-                    <div class="card-body">
-                        <h5 class="card-title"><?php echo $question->label?></h5>
-                        <canvas id="radarChart<?php echo $question->id?>" style="max-height: 400px;"></canvas>
-                        <?php $options = explode(',', $question->options); ?>
-                        <script>
-                            document.addEventListener("DOMContentLoaded", () => {
-                                new Chart(document.querySelector('#radarChart<?php echo $question->id?>'), {
-                                    type: 'radar',
-                                    data: {
-                                        labels: [
-                                            <?php foreach ($options as $option): ?>
-                                            '<?php echo trim($option)?>',
-                                            <?php endforeach; ?>
-                                        ],
-                                        <?php $answers = $question->answers?>
-
-
-                                        datasets: [ {
-                                            label: '<?php echo $question->label?>',
-                                            data: [
+<!--            done-->
+                <div class="col-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title"><?php echo $question->label?></h5>
+                            <canvas id="radarChart<?php echo $question->id?>" style="max-height: 400px;"></canvas>
+                            <?php $options = explode(',', $question->options); ?>
+                            <script>
+                                document.addEventListener("DOMContentLoaded", () => {
+                                    new Chart(document.querySelector('#radarChart<?php echo $question->id?>'), {
+                                        type: 'radar',
+                                        data: {
+                                            labels: [
                                                 <?php foreach ($options as $option): ?>
-                                                <?php $count = 0; ?>
-                                                <?php foreach ($answers as $answer): ?>
-
-
-                                                <?php if (in_array(trim($option), explode(',',trim($answer->response)) )): ?>
-                                                <?php $count++; ?>
-                                                <?php endif; ?>
-                                                <?php endforeach; ?>
-                                                <?php echo $count; ?>,
+                                                '<?php echo trim($option)?>',
                                                 <?php endforeach; ?>
                                             ],
-                                            fill: true,
-                                            backgroundColor: 'rgba(54, 162, 235, 0.2)',
-                                            borderColor: 'rgb(54, 162, 235)',
-                                            pointBackgroundColor: 'rgb(54, 162, 235)',
-                                            pointBorderColor: '#fff',
-                                            pointHoverBackgroundColor: '#fff',
-                                            pointHoverBorderColor: 'rgb(54, 162, 235)'
-                                        }]
-                                    },
-                                    options: {
-                                        elements: {
-                                            line: {
-                                                borderWidth: 3
+                                            <?php $answers = $question->answers?>
+
+
+                                            datasets: [ {
+                                                label: '<?php echo $question->label?>',
+                                                data: [
+                                                    <?php foreach ($options as $option): ?>
+                                                    <?php $count = 0; ?>
+                                                    <?php foreach ($answers as $answer): ?>
+
+
+                                                    <?php if (in_array(trim($option), explode(',',trim($answer->response)) )): ?>
+                                                    <?php $count++; ?>
+                                                    <?php endif; ?>
+                                                    <?php endforeach; ?>
+                                                    <?php echo $count; ?>,
+                                                    <?php endforeach; ?>
+                                                ],
+                                                <?php $rand1  = rand(0,255); $rand2  = rand(0,255); $rand3 = rand(0,255); ?>
+                                                fill: true,
+                                                backgroundColor: 'rgba(<?php echo $rand1?>, <?php echo $rand2?>, <?php echo $rand3?>, 0.3)',
+                                                borderColor: 'rgba(<?php echo $rand1?>, <?php echo $rand2?>, <?php echo $rand3?>)',
+                                                pointBackgroundColor: 'rgba(<?php echo $rand1?>, <?php echo $rand2?>, <?php echo $rand3?>)',
+                                                pointBorderColor: '#fff',
+                                                pointHoverBackgroundColor: '#fff',
+                                                pointHoverBorderColor: 'rgba(<?php echo $rand1?>, <?php echo $rand2?>, <?php echo $rand3?>)',
+                                            }]
+                                        },
+                                        options: {
+                                            elements: {
+                                                line: {
+                                                    borderWidth: 1
+                                                }
                                             }
                                         }
-                                    }
+                                    });
                                 });
-                            });
-                        </script>
-                        <!-- End Radar CHart -->
+                            </script>
+                            <!-- End Radar CHart -->
 
+                        </div>
                     </div>
-                <?php elseif ($question->type == 'textarea'): ?>
-                <div class="card-body">
-                    <h5 class="card-title"><?php echo $question->label?></h5>
-                    <table class="table">
-                        <thead>
-                        <tr>
-                            <th scope="col">Response</th>
-                            <th scope="col">Date</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <?php foreach ($question->answers as $answer): ?>
-                        <tr>
-                            <td><?php echo trim($answer->response)?></td>
-                            <td><?php echo $answer->created_at?></td>
-                            </tr>
-                        <?php endforeach; ?>
-                        </tbody>
-                        </table>
                 </div>
-                <?php elseif ($question->type == 'select' &&  $select_index == 1): ?>
-                    <div class="card-body">
+                <?php elseif ($question->type == 'textarea'): ?>
+<!--            done-->
+                <div class="col-6">
+                    <div class="card">
+                        <div class="card-body">
                         <h5 class="card-title"><?php echo $question->label?></h5>
-
-                        <!-- Doughnut Chart -->
-                        <canvas id="doughnutChart" style="max-height: 400px;"></canvas>
-                        <?php $options = explode(',', $question->options); ?>
-                        <script>
-                            document.addEventListener("DOMContentLoaded", () => {
-                                new Chart(document.querySelector('#doughnutChart'), {
-                                    type: 'doughnut',
-                                    data: {
-                                        labels: [
-                                            <?php foreach ($options as $option): ?>
-                                            '<?php echo trim($option)?>',
-                                            <?php endforeach; ?>
-                                        ],
-                                        <?php $answers = $question->answers ?>
-
-                                        datasets: [{
-                                            label: '<?php echo $question->label?>',
-                                            data: [
-                                                <?php foreach ($options as $option): ?>
-                                                <?php $count = 0; ?>
-                                                <?php foreach ($answers as $answer): ?>
-                                                <?php if (trim($answer->response) == trim($option)): ?>
-                                                <?php $count++; ?>
-                                                <?php endif; ?>
-                                                <?php endforeach; ?>
-                                                <?php echo $count; ?>,
-                                                <?php endforeach; ?>
-                                            ],
-                                            backgroundColor: [
-                                                <?php foreach ($options as $option): ?>
-                                                // a diffenrt color for each option
-                                                'rgba(<?php echo rand(0,255)?>, <?php echo rand(0,255)?>, <?php echo rand(0,255)?>, 0.2)',
-                                                <?php endforeach; ?>
-                                            ],
-                                            hoverOffset: 4
-                                        }]
-                                    }
-                                });
-                            });
-                        </script>
-                        <!-- End Doughnut CHart -->
-
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th scope="col">Response</th>
+                                <th scope="col">Date</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <?php foreach ($question->answers as $answer): ?>
+                            <tr>
+                                <td><?php echo trim($answer->response)?></td>
+                                <td><?php echo $answer->created_at?></td>
+                                </tr>
+                            <?php endforeach; ?>
+                            </tbody>
+                            </table>
                     </div>
-                <?php $select_index = 0; ?>
+                    </div>
+                </div>
+                <?php elseif (($question->type == 'select' &&  $select_index == 1) || ($question->type == 'radio' && $radio_index == 1)): ?>
+<!--            done-->
+                <div class="col-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title"><?php echo $question->label?></h5>
+
+                            <!-- Doughnut Chart -->
+                            <canvas id="doughnutChart<?php echo $question->id?>" style="max-height: 400px;"></canvas>
+                            <?php $options = explode(',', $question->options); ?>
+                            <script>
+                                document.addEventListener("DOMContentLoaded", () => {
+                                    new Chart(document.querySelector('#doughnutChart<?php echo $question->id?>'), {
+                                        type: 'doughnut',
+                                        data: {
+                                            labels: [
+                                                <?php foreach ($options as $option): ?>
+                                                '<?php echo trim($option)?>',
+                                                <?php endforeach; ?>
+                                            ],
+                                            <?php $answers = $question->answers ?>
+
+                                            datasets: [{
+                                                label: '<?php echo $question->label?>',
+                                                data: [
+                                                    <?php foreach ($options as $option): ?>
+                                                    <?php $count = 0; ?>
+                                                    <?php foreach ($answers as $answer): ?>
+                                                    <?php if (trim($answer->response) == trim($option)): ?>
+                                                    <?php $count++; ?>
+                                                    <?php endif; ?>
+                                                    <?php endforeach; ?>
+                                                    <?php echo $count; ?>,
+                                                    <?php endforeach; ?>
+                                                ],
+                                                backgroundColor: [
+                                                    <?php foreach ($options as $option): ?>
+                                                    // a diffenrt color for each option
+                                                    'rgba(<?php echo rand(0,255)?>, <?php echo rand(0,255)?>, <?php echo rand(0,255)?>, 0.8)',
+                                                    <?php endforeach; ?>
+                                                ],
+                                                hoverOffset: 4
+                                            }]
+                                        }
+                                    });
+                                });
+                            </script>
+                            <!-- End Doughnut CHart -->
+
+                        </div>
+                    </div>
+                </div>
+                <?php if ($question->type == 'radio'){
+                    $radio_index = 0;
+                }
+                else{
+                    $select_index = 2;
+                }
+                ?>
                 <?php endif; ?>
-            </div>
-        </div>
+
         <?php endforeach; ?>
     </div>
 </section>

@@ -63,10 +63,11 @@ class SurveyController {
             $survey->title = $title;
             $survey->description = $description;
             $survey->success_message = $success_message;
+            $survey->featured = $_POST['featured'] ?? 0;
             $survey->save();
         }else{
             $message = "Please fill all fields";
-            $_SESSION['message'] = ["type" => "danger", "message" => $message];
+            $_SESSION['msg'] = ["type" => "danger", "message" => $message];
             header("Location: " . '/admin/survey/all');
         }
         unset($_POST['id'],$_POST['title'], $_POST['description'], $_POST['success_message']);
@@ -74,18 +75,18 @@ class SurveyController {
         if (!$data){
             if ($survey->submit_count > 0) {
                 $message = "Survey edited successfully";
-                $_SESSION['message'] = ["type" => "success", "message" => $message];
+                $_SESSION['msg'] = ["type" => "success", "message" => $message];
                 header("Location: " . '/admin/survey/all');
                 return;
             }
             $message = "you need to add at least one question";
-            $_SESSION['message'] = ["type" => "danger", "message" => $message];
+            $_SESSION['msg'] = ["type" => "danger", "message" => $message];
             header("Location: " . '/admin/survey/build?id='.$id);
             return;
         }
         if (!isset($data['field_type']) || !isset($data['field_name']) || !isset($data['field_placeholder'])) {
             $message = "Please fill all fields";
-            $_SESSION['message'] = ["type" => "danger", "message" => $message];
+            $_SESSION['msg'] = ["type" => "danger", "message" => $message];
             header("Location: " . '/admin/survey/all');
             return;
         }
@@ -193,6 +194,14 @@ class SurveyController {
     {
         $id = $_GET['id'];
         $survey = Survey::find($id);
+        // check if the user has already submitted the survey
+        $answer = Answer::where('user_id', $_SESSION['user']->id)->where('survey_id', $id)->first();
+        if ($answer) {
+            $message = "You have already submitted this survey";
+            $_SESSION['msg'] = ["type" => "danger", "message" => $message];
+            header("Location: " . '/');
+            return;
+        }
         $questions = $survey->questions;
         if (!$survey) {
             require "views/404.php";
